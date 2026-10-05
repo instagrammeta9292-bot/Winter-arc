@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RHK — Winter Arc</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f5f3;
+    color: #111;
+    padding: 15px;
+}
+
+.app {
+    max-width: 1500px;
+    margin: auto;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    background: #fff;
+    border: 2px solid #111;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.7fr;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.brand h1 {
+    font-size: clamp(34px, 5vw, 65px);
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+.brand p {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin-top: 4px;
+}
+
+.info {
+    border-left: 2px solid #111;
+    padding-left: 25px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    font-weight: bold;
+}
+
+.info-row label {
+    width: 65px;
+}
+
+.info-row input {
+    border: none;
+    border-bottom: 2px solid #111;
+    outline: none;
+    width: 100%;
+    font-size: 15px;
+    background: transparent;
+    padding: 5px;
+}
+
+.rhk {
+    text-align: center;
+    border-left: 2px solid #111;
+    padding-left: 20px;
+}
+
+.rhk-logo {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -3px;
+}
+
+.rhk small {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* ================= SECTION ================= */
+
+.section {
+    background: #fff;
+    border: 2px solid #111;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.section-title {
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #111;
+}
+
+.title-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 25px;
+}
+
+.section-title h2 {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.section-title span {
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+/* ================= HABIT TRACKER ================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #999;
+    text-align: center;
+    height: 37px;
+}
+
+th {
+    background: #f2f2f2;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.habit-name {
+    width: 220px;
+    text-align: left;
+    padding: 5px 10px;
+    font-weight: bold;
+    background: #fff;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+
+.habit-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    font-size: 14px;
+    background: transparent;
+}
+
+.day {
+    width: 34px;
+    min-width: 34px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
+    user-select: none;
+}
+
+.day.checked {
+    background: #111;
+    color: white;
+}
+
+.day:hover {
+    background: #ddd;
+}
+
+.day.checked:hover {
+    background: #333;
+}
+
+.progress-cell {
+    width: 65px;
+    min-width: 65px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* ================= BUTTONS ================= */
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+
+button {
+    border: 2px solid #111;
+    background: #fff;
+    padding: 8px 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #111;
+    color: #fff;
+}
+
+/* ================= SLEEP ================= */
+
+.sleep-table {
+    min-width: 1000px;
+}
+
+.sleep-hour {
+    width: 100px;
+    text-align: left;
+    padding-left: 10px;
+    font-weight: bold;
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 2;
+}
+
+.sleep-cell {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    height: 34px;
+}
+
+.sleep-cell.checked {
+    background: #111;
+    color: #fff;
+}
+
+/* ================= CARDS ================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    border: 2px solid #111;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.card-title h3 {
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.goal-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 13px 0;
+}
+
+.goal-number {
+    font-weight: bold;
+}
+
+.goal-input,
+.text-input {
+    border: none;
+    border-bottom: 1.5px solid #555;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    padding: 5px;
+    background: transparent;
+}
+
+.review-label {
+    font-size: 9px;
+    font-weight: bold;
+    margin-top: 12px;
+    letter-spacing: 1px;
+}
+
+textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 35px;
+    border: none;
+    border-bottom: 1.5px solid #555;
+    outline: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 5px;
+    background: transparent;
+}
+
+.notes textarea {
+    min-height: 45px;
+}
+
+/* ================= DASHBOARD ================= */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.stat {
+    background: white;
+    border: 2px solid #111;
+    padding: 15px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.stat-label {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5px 5px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.footer-rhk {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 800px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .header {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .info {
+        border-left: none;
+        border-top: 2px solid #111;
+        padding-left: 0;
+        padding-top: 10px;
+    }
+
+    .rhk {
+        border-left: none;
+        border-top: 2px solid #111;
+        padding-left: 0;
+        padding-top: 12px;
+    }
+
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .brand h1 {
+        font-size: 42px;
+    }
+
+    .section-title h2 {
+        font-size: 17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="brand">
+        <h1>WINTER ARC</h1>
+        <p>PLAN &nbsp; / &nbsp; TRACK &nbsp; / &nbsp; IMPROVE &nbsp; / &nbsp; TRANSFORM</p>
+    </div>
+
+    <div class="info">
+
+        <div class="info-row">
+            <label>NAME :</label>
+            <input id="name" type="text" placeholder="Your name">
+        </div>
+
+        <div class="info-row">
+            <label>MONTH :</label>
+            <input id="month" type="text" placeholder="October 2026">
+        </div>
+
+    </div>
+
+    <div class="rhk">
+        <div class="rhk-logo">RHK</div>
+        <small>SAME YOU<br>BUT STRONGER</small>
+    </div>
+
+</header>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="dashboard">
+
+    <div class="stat">
+        <div class="stat-number" id="totalCompleted">0</div>
+        <div class="stat-label">TOTAL COMPLETIONS</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-number" id="todayCompleted">0/10</div>
+        <div class="stat-label">TODAY</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-number" id="overallPercent">0%</div>
+        <div class="stat-label">MONTH PROGRESS</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-number" id="bestDay">0</div>
+        <div class="stat-label">BEST DAY</div>
+    </div>
+
+</div>
+
+
+<!-- ================= HABIT TRACKER ================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div class="title-left">
+            <div class="icon">☑</div>
+            <h2>HABIT TRACKER</h2>
+        </div>
+
+        <span>31 DAYS &nbsp; / &nbsp; SMALL STEPS &nbsp; BIG RESULTS</span>
+
+    </div>
+
+    <div class="table-wrapper">
+
+        <table id="habitTable">
+
+            <thead>
+                <tr>
+
+                    <th class="habit-name">HABIT</th>
+
+                    <script>
+                        for(let d=1; d<=31; d++){
+                            document.write(`<th>${d}</th>`);
+                        }
+                    </script>
+
+                    <th class="progress-cell">%</th>
+
+                </tr>
+            </thead>
+
+            <tbody id="habitBody"></tbody>
+
+        </table>
+
+    </div>
+
+    <div class="buttons">
+
+        <button onclick="addHabit()">＋ ADD HABIT</button>
+
+        <button onclick="resetHabits()">RESET HABITS</button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SLEEP TRACKER ================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div class="title-left">
+            <div class="icon">☾</div>
+            <h2>SLEEP TRACKER</h2>
+        </div>
+
+        <span>BETTER SLEEP • BETTER YOU</span>
+
+    </div>
+
+    <div class="table-wrapper">
+
+        <table class="sleep-table">
+
+            <thead>
+                <tr>
+
+                    <th class="sleep-hour">SLEEP</th>
+
+                    <script>
+                        for(let d=1; d<=31; d++){
+                            document.write(`<th>${d}</th>`);
+                        }
+                    </script>
+
+                </tr>
+            </thead>
+
+            <tbody id="sleepBody"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- ================= BOTTOM CARDS ================= -->
+
+<div class="cards">
+
+    <!-- GOALS -->
+
+    <div class="card">
+
+        <div class="card-title">
+            <span>🎯</span>
+            <h3>MONTHLY GOAL</h3>
+        </div>
+
+        <div id="goals"></div>
+
+    </div>
+
+
+    <!-- REVIEW -->
+
+    <div class="card">
+
+        <div class="card-title">
+            <span>▣</span>
+            <h3>MONTHLY REVIEW</h3>
+        </div>
+
+        <div class="review-label">WHAT WENT WELL?</div>
+        <textarea id="review1"></textarea>
+
+        <div class="review-label">WHAT WAS CHALLENGING?</div>
+        <textarea id="review2"></textarea>
+
+        <div class="review-label">WHAT WILL I IMPROVE NEXT MONTH?</div>
+        <textarea id="review3"></textarea>
+
+    </div>
+
+
+    <!-- NOTES -->
+
+    <div class="card notes">
+
+        <div class="card-title">
+            <span>✎</span>
+            <h3>NOTES</h3>
+        </div>
+
+        <textarea id="notes1"></textarea>
+        <br>
+        <textarea id="notes2"></textarea>
+        <br>
+        <textarea id="notes3"></textarea>
+        <br>
+        <textarea id="notes4"></textarea>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+
+    <span>DISCIPLINE BUILDS FREEDOM</span>
+
+    <span class="footer-rhk">RHK</span>
+
+    <span>YOU ARE NOT ALONE</span>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   RHK WINTER ARC DATA
+===================================================== */
+
+const defaultHabits = [
+    "Workout",
+    "Clean Eating",
+    "Water 3L+",
+    "Reading / Learning",
+    "No Junk Food",
+    "Meditation",
+    "Social Media Limited",
+    "Early Sleep",
+    "Morning Routine",
+    "Study / Coding"
+];
+
+let data = JSON.parse(localStorage.getItem("rhkWinterArc")) || {
+
+    habits: defaultHabits.map(name => ({
+        name: name,
+        days: Array(31).fill(false)
+    })),
+
+    sleep: Array(31).fill(""),
+
+    goals: Array(5).fill(""),
+
+    review1: "",
+    review2: "",
+    review3: "",
+
+    notes1: "",
+    notes2: "",
+    notes3: "",
+    notes4: "",
+
+    name: "",
+    month: ""
+
+};
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function saveData(){
+
+    localStorage.setItem(
+        "rhkWinterArc",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =====================================================
+   HABIT TABLE
+===================================================== */
+
+function renderHabits(){
+
+    const body = document.getElementById("habitBody");
+
+    body.innerHTML = "";
+
+    data.habits.forEach((habit, index) => {
+
+        const row = document.createElement("tr");
+
+        let html = `
+            <td class="habit-name">
+
+                <input
+                    class="habit-input"
+                    value="${escapeHTML(habit.name)}"
+                    onchange="changeHabitName(${index}, this.value)"
+                >
+
+            </td>
+        `;
+
+        for(let day=0; day<31; day++){
+
+            html += `
+                <td
+                    class="day ${habit.days[day] ? "checked" : ""}"
+                    onclick="toggleHabit(${index}, ${day})"
+                >
+                    ${habit.days[day] ? "✓" : ""}
+                </td>
+            `;
+
+        }
+
+        const completed =
+            habit.days.filter(Boolean).length;
+
+        const percent =
+            Math.round((completed / 31) * 100);
+
+        html += `
+            <td class="progress-cell">
+                ${percent}%
+            </td>
+        `;
+
+        row.innerHTML = html;
+
+        body.appendChild(row);
+
+    });
+
+    updateDashboard();
+
+}
+
+
+/* =====================================================
+   CHANGE HABIT
+===================================================== */
+
+function changeHabitName(index, value){
+
+    data.habits[index].name = value;
+
+    saveData();
+
+}
+
+
+/* =====================================================
+   MARK HABIT
+===================================================== */
+
+function toggleHabit(habitIndex, day){
+
+    data.habits[habitIndex].days[day] =
+        !data.habits[habitIndex].days[day];
+
+    saveData();
+
+    renderHabits();
+
+}
+
+
+/* =====================================================
+   ADD HABIT
+===================================================== */
+
+function addHabit(){
+
+    if(data.habits.length >= 15){
+
+        alert("Maximum 15 habits allowed.");
+
+        return;
+
+    }
+
+    data.habits.push({
+
+        name: "New Habit",
+
+        days: Array(31).fill(false)
+
+    });
+
+    saveData();
+
+    renderHabits();
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetHabits(){
+
+    if(!confirm("Reset all habit tracking?")) return;
+
+    data.habits = defaultHabits.map(name => ({
+
+        name: name,
+
+        days: Array(31).fill(false)
+
+    }));
+
+    saveData();
+
+    renderHabits();
+
+}
+
+
+/* =====================================================
+   SLEEP TRACKER
+===================================================== */
+
+function renderSleep(){
+
+    const body =
+        document.getElementById("sleepBody");
+
+    body.innerHTML = "";
+
+    const hours = [
+        "10+ hrs",
+        "9 hrs",
+        "8 hrs",
+        "7 hrs",
+        "6 hrs",
+        "5 hrs",
+        "4 hrs"
+    ];
+
+    hours.forEach(hour => {
+
+        const row =
+            document.createElement("tr");
+
+        let html = `
+            <td class="sleep-hour">
+                ${hour}
+            </td>
+        `;
+
+        for(let day=0; day<31; day++){
+
+            const selected =
+                data.sleep[day] === hour;
+
+            html += `
+                <td
+                    class="sleep-cell ${selected ? "checked" : ""}"
+                    onclick="selectSleep(${day}, '${hour}')"
+                >
+                    ${selected ? "✓" : ""}
+                </td>
+            `;
+
+        }
+
+        row.innerHTML = html;
+
+        body.appendChild(row);
+
+    });
+
+}
+
+
+/* =====================================================
+   SELECT SLEEP
+===================================================== */
+
+function selectSleep(day, hour){
+
+    if(data.sleep[day] === hour){
+
+        data.sleep[day] = "";
+
+    }else{
+
+        data.sleep[day] = hour;
+
+    }
+
+    saveData();
+
+    renderSleep();
+
+}
+
+
+/* =====================================================
+   GOALS
+===================================================== */
+
+function renderGoals(){
+
+    const container =
+        document.getElementById("goals");
+
+    container.innerHTML = "";
+
+    for(let i=0; i<5; i++){
+
+        const row =
+            document.createElement("div");
+
+        row.className = "goal-row";
+
+        row.innerHTML = `
+
+            <span class="goal-number">
+                ${i+1}.
+            </span>
+
+            <input
+                class="goal-input"
+                value="${escapeHTML(data.goals[i])}"
+                placeholder="Write your goal..."
+                oninput="updateGoal(${i}, this.value)"
+            >
+
+        `;
+
+        container.appendChild(row);
+
+    }
+
+}
+
+
+/* =====================================================
+   UPDATE GOAL
+===================================================== */
+
+function updateGoal(index, value){
+
+    data.goals[index] = value;
+
+    saveData();
+
+}
+
+
+/* =====================================================
+   TEXT FIELDS
+===================================================== */
+
+function setupTextFields(){
+
+    const fields = [
+
+        "review1",
+        "review2",
+        "review3",
+        "notes1",
+        "notes2",
+        "notes3",
+        "notes4",
+        "name",
+        "month"
+
+    ];
+
+    fields.forEach(id => {
+
+        const element =
+            document.getElementById(id);
+
+        element.value = data[id] || "";
+
+        element.addEventListener("input", function(){
+
+            data[id] = this.value;
+
+            saveData();
+
+        });
+
+    });
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function updateDashboard(){
+
+    let total = 0;
+
+    let today = 0;
+
+    let best = 0;
+
+    for(let h of data.habits){
+
+        total += h.days.filter(Boolean).length;
+
+    }
+
+    /* Today's count = current calendar day */
+
+    const currentDay =
+        new Date().getDate() - 1;
+
+    if(currentDay >= 0 && currentDay < 31){
+
+        for(let h of data.habits){
+
+            if(h.days[currentDay]){
+
+                today++;
+
+            }
+
+        }
+
+    }
+
+    /* Best day */
+
+    for(let day=0; day<31; day++){
+
+        let count = 0;
+
+        for(let h of data.habits){
+
+            if(h.days[day]) count++;
+
+        }
+
+        if(count > best){
+
+            best = count;
+
+        }
+
+    }
+
+    const max =
+        data.habits.length * 31;
+
+    const percentage =
+        max > 0
+        ? Math.round((total / max) * 100)
+        : 0;
+
+    document.getElementById(
+        "totalCompleted"
+    ).textContent = total;
+
+    document.getElementById(
+        "todayCompleted"
+    ).textContent =
+        `${today}/${data.habits.length}`;
+
+    document.getElementById(
+        "overallPercent"
+    ).textContent =
+        percentage + "%";
+
+    document.getElementById(
+        "bestDay"
+    ).textContent = best;
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+renderHabits();
+
+renderSleep();
+
+renderGoals();
+
+setupTextFields();
+
+updateDashboard();
+
+</script>
+
+</body>
+  </html>
